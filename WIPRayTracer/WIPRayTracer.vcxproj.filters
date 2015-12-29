@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{fa4f7e81-2a0a-445e-9a0f-99ee37552596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{8815b5fb-a23d-4110-a013-9e7a0e93d494}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test\cases">
+      <UniqueIdentifier>{d01a8ba9-a22f-4eb9-8ee1-4a35dcbd7ae9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extension">
+      <UniqueIdentifier>{d67894d9-f2c6-4d72-8d23-731eb0345da2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseGeometryObject.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="TraceData.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewPanel.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelObject.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereObject.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL.cpp">
+      <Filter>Extension</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Pinhole.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="PhongMat.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="test1.h">
+      <Filter>Test\cases</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseGeometryObject.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="TraceData.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewPanel.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelObject.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereObject.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="FFTTEST.h">
+      <Filter>Test\cases</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL.h">
+      <Filter>Extension</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Pinhole.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Film.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="PhongMat.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
