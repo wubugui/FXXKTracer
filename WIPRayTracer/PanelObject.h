@@ -9,7 +9,7 @@ public:
 	RBVector3 normal;
 
 	virtual bool hit(Ray& ray,  TraceData& data) const;
-	RBVector4 shade(RBVector3 n, RBVector3 l, RBVector3 v) override;
+	RBVector4 shade(RBVector3 n, RBVector3 l, RBVector3 v, RBColorf ld) override;
 	RBVector3 get_normal(RBVector3 surf_p);
 	PanelObject();
 	~PanelObject();

@@ -15,5 +15,6 @@ int main()
 	w.out_put();
 	std::cout << "Done!" << std::endl;
 	//system("pause");
+	system("C:/result1.bmp");
 	return 0;
 }

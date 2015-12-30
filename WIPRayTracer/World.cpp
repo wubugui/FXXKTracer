@@ -10,6 +10,9 @@
 #include "Vector2.h"
 #include "PhongMat.h"
 
+#include "./xml/tinyxml.h"
+#include "./xml/tinystr.h"
+
 typedef struct
 {
 	//unsigned short    bfType;  
@@ -185,7 +188,7 @@ bool clSaveImage(char* path, ClImage* bmpImg)
 World::World()
 {
 	//test
-	
+	light_pos = RBVector3(0,1.8,-1);
 }
 
 
@@ -196,6 +199,7 @@ World::~World()
 
 void World::build(int num)
 {
+	
 	phong_mat[0] = new PhongMat();
 	phong_mat[0]->cd = RBVector3(1.f, 0, 0);
 	phong_mat[0]->cs = RBVector3(1.5,0.0, 0.0);
@@ -248,24 +252,126 @@ void World::build(int num)
 	o111->r = 0.2f;
 	o111->color = RBColorf::yellow;
 	o111->mat = phong_mat[3];
-
+	
 	PanelObject* p = new PanelObject();
 	p->color.r = 0.9;
 	//p->color.g = p->color.b = p->color.a = 0.5f;
 	p->color = RBColorf::cyan;
 	p->normal.x = 0;
 	p->normal.y = 0.8f;
-	p->normal.z = -0.1f;
+	p->normal.z = 0.f;
 	p->point.x = 0;
 	p->point.y = -0.7;
 	p->point.z = 0;
 	p->mat = phong_mat[2];
 	
+	PanelObject* p1 = new PanelObject();
+	p1->color.r = 0.9;
+	//p->color.g = p->color.b = p->color.a = 0.5f;
+	p1->color = RBColorf::cyan;
+	p1->normal.x = 0;
+	p1->normal.y = 0.f;
+	p1->normal.z = -1.f;
+	p1->point.x = 0;
+	p1->point.y = 0;
+	p1->point.z = 5.f;
+	p1->mat = phong_mat[2];
 
-	_objects.push_back(o1);
-	_objects.push_back(o11);
-	_objects.push_back(p);
-	_objects.push_back(o111);
+	PanelObject* pl = new PanelObject();
+	pl->color.r = 0.9;
+	//p->color.g = p->color.b = p->color.a = 0.5f;
+	pl->color = RBColorf::cyan;
+	pl->normal.x = 1;
+	pl->normal.y = 0.f;
+	pl->normal.z = 0.f;
+	pl->point.x = -2;
+	pl->point.y = 0;
+	pl->point.z = 0.f;
+	pl->mat = phong_mat[0];
+
+	PanelObject* pr = new PanelObject();
+	pr->color.r = 0.9;
+	//p->color.g = p->color.b = p->color.a = 0.5f;
+	pr->color = RBColorf::cyan;
+	pr->normal.x = -1;
+	pr->normal.y = 0.f;
+	pr->normal.z = 0.f;
+	pr->point.x = 2;
+	pr->point.y = 0;
+	pr->point.z = 0.f;
+	pr->mat = phong_mat[3];
+
+	PanelObject* pt = new PanelObject();
+	pt->color.r = 0.9;
+	//p->color.g = p->color.b = p->color.a = 0.5f;
+	pt->color = RBColorf::cyan;
+	pt->normal.x = 0;
+	pt->normal.y = -1.f;
+	pt->normal.z = 0.f;
+	pt->point.x = 0;
+	pt->point.y = 2;
+	pt->point.z = 0.f;
+	pt->mat = phong_mat[1];
+
+	//_objects.push_back(o1);
+	//_objects.push_back(o11);
+	//_objects.push_back(p);
+	_objects.push_back(p1);
+	_objects.push_back(pl);
+	_objects.push_back(pr);
+	//_objects.push_back(pt);
+	//_objects.push_back(o111);
+	
+
+	TiXmlDocument *myDocument = new TiXmlDocument("c:/scene.xml");
+	if (!myDocument->LoadFile())
+		printf("读取场景失败！");
+
+	TiXmlElement *RootElement = myDocument->RootElement();
+	TiXmlElement* lo = myDocument->FirstChildElement()->FirstChildElement();
+
+	std::cout << lo->Value() << std::endl;
+
+	while (lo)
+	{
+		TiXmlAttribute* kda, *ksa,*xa,*ya,*za,*ra;
+		kda = lo->FirstChildElement()->FirstAttribute();
+		ksa = kda->Next();
+
+		xa = lo->FirstChildElement()->NextSiblingElement()->FirstAttribute();
+		ya = xa->Next();
+		za = ya->Next();
+		ra = za->Next();
+
+		TiXmlAttribute* r1a, *g1a, *b1a,* r2a,* g2a,* b2a;
+		r1a = lo->FirstChildElement()->FirstChildElement()->FirstAttribute();
+		g1a = r1a->Next();
+		b1a = g1a->Next();
+
+		r2a = lo->FirstChildElement()->FirstChildElement()->NextSiblingElement()->FirstAttribute();
+		g2a = r2a->Next();
+		b2a = g2a->Next();
+
+
+		PhongMat* mat = new PhongMat();
+		mat->kd = kda->DoubleValue();
+		mat->kspec = ksa->DoubleValue();
+		mat->cs = RBVector3(r1a->DoubleValue(),g1a->DoubleValue(),b1a->DoubleValue());
+		mat->cd = RBVector3(r2a->DoubleValue(), g2a->DoubleValue(), b2a->DoubleValue());
+
+		SphereObject* o_ = new SphereObject();
+		o_->position.x = xa->DoubleValue();
+		o_->position.y = ya->DoubleValue();
+		o_->position.z = za->DoubleValue();
+		o_->r = ra->DoubleValue();
+		o_->color = RBColorf::black;
+		o_->mat = mat;
+
+		_objects.push_back(o_);
+
+		lo = lo->NextSiblingElement();
+	}
+	printf("加载完成！");
 }
 
 void World::render()
@@ -279,11 +385,34 @@ void World::render()
 	{
 		for (int j = 0; j < panel.hsize; ++j)
 		{
+			//差分光线最终贡献度
+			float ssk = 0.6;
+
 			panel.emit_ray(i,j,ray, _trace_data);
-			c = trace_ray(ray, _trace_data,1);
+			c = trace_ray(ray, _trace_data,1)*(1-ssk);
+
+			float i0 = i - 0.5; float j0 = j - 0.5;
+			float i1 = i + 0.5; float j1 = j + 0.5;
+
+			panel.emit_ray(i0, j0, ray, _trace_data);
+			c += trace_ray(ray, _trace_data, 1)*ssk*0.25;
+
+			panel.emit_ray(i0, j1, ray, _trace_data);
+			c += trace_ray(ray, _trace_data, 1)*ssk*0.25;
+
+			panel.emit_ray(i1, j0, ray, _trace_data);
+			c += trace_ray(ray, _trace_data, 1)*ssk*0.25;
+
+			panel.emit_ray(i1, j1, ray, _trace_data);
+			c += trace_ray(ray, _trace_data, 1)*ssk*0.25;
+
+
 
 			tone(c);
-
+			if ((i * 800 + j) % 12800 == 0)
+			{
+				printf("%d/100\n",(int)((i*800+j)/640000.f*100));
+			}
 			_out_image[i*panel.hsize * 3 + j * 3] = (unsigned char)(c.b * 255);
 			_out_image[i*panel.hsize * 3 + j * 3 + 1] = (unsigned char)(c.g * 255);
 			_out_image[i*panel.hsize * 3 + j * 3 + 2] = (unsigned char)(c.r * 255);
@@ -322,16 +451,10 @@ RBVector3 World::_tonemap(RBVector3 x)
 
 void World::tone(RBColorf& c)
 {
-	/*
-	float u = RBMath::max3(c.r, c.g, c.b);
-	if (u < 1.0f)
-		return;
-	float inv = 1.f/u;
-	c*=inv;
-	*/
+	
 	float W = 11.2;
 	RBVector3 texColor(c);
-	texColor *= 1.5f;  // Hardcoded Exposure Adjustment
+	texColor *= 0.8f;  // Hardcoded Exposure Adjustment
 
 	float ExposureBias = 2.0f;
 	RBVector3 curr = _tonemap(ExposureBias*texColor);
@@ -344,16 +467,28 @@ void World::tone(RBColorf& c)
 	c.b = color.z;
 	c.a = 1.f;
 	
+	
+	/*
+	float u = RBMath::max3(c.r, c.g, c.b);
+	if (u < 1.0f)
+	return;
+	float inv = 1.f/u;
+	c*=inv;
+	*/
 }
 
-RBVector4 World::shade(TraceData& _trace_data)
+RBVector4 World::shade(TraceData& _trace_data,bool shadow)
 {
 	static bool l = true;
 
-	RBVector3 light_dir(-1,1,-1);
+	RBVector3 light_dir = light_pos;
 	light_dir.normalize();
+	RBColorf light_color;
+	if (!shadow)
+		light_color = RBColorf(1.7, 1.7, 1.7, 1.0);
+	else
+		light_color = RBColorf::black;
 
-	RBColorf light_color(0.7,0.7,0.7,1.0);
 	RBVector3 abm(0.2,0.2,0.22);
 
 	Ray* ray = _trace_data.cur_ray;
@@ -382,7 +517,9 @@ RBVector4 World::shade(TraceData& _trace_data)
 	}
 	*/
 
-	RBVector4 occ = geo->shade(normal, light_dir, view);
+	RBVector4 occ = geo->shade(normal, light_dir, view,light_color);
+
+	//环境光应该在材质shade中做，但是这里可能以后会取消环境光
 	occ += abm*((PhongMat*)geo->mat)->cd;
 
 	_trace_data.color = occ;
@@ -416,23 +553,50 @@ RBColorf World::trace_ray(Ray& ray, TraceData& trace_data,int dep)
 		}
 	}
 	ray.t = MAX_F;
+	
+	RBVector3 ip = ray.o + ray.direction*_trace_data.tmin;
+	Ray shadow_ray(ip,light_pos);
+	TraceData _trace_data1;
+	bool bb = false;
+	
+	tmin = MAX_F;
+		it = _objects.begin();
+		for (; it != _objects.end(); ++it)
+		{
+
+			bb = (*it)->hit(shadow_ray, _trace_data1) || bb;
+			
+			if (shadow_ray.t < tmin)
+			{
+			_trace_data1.tmin = tmin = shadow_ray.t;
+			_trace_data1.nearest_geo = *it;
+			_trace_data1.cur_ray = &shadow_ray;
+			}
+			
+		}
+		SphereObject* geo = (SphereObject*)_trace_data1.nearest_geo;
+		if (geo->type == E_Panel)
+			bb = false;
+
 	if (b)
 	{
-		RBVector3 ip = ray.o + ray.direction*_trace_data.tmin;
+		
 		SphereObject* geo = (SphereObject*)_trace_data.nearest_geo;
-		RBVector3 normal = geo->get_normal(ip);
-		normal.normalize();
-		RBVector3 rd = -ray.direction.get_normalized();
-		RBVector3 rrd = normal*RBVector3::dot_product(normal, rd) * 2-rd;
-		rrd.normalize();
-		Ray rr; rr.direction = rrd; rr.o = ip;
-		RBColorf ic = trace_ray(rr, _trace_data,++d);
+		RBColorf ic = RBColorf::black;
 
+			RBVector3 normal = geo->get_normal(ip);
+			normal.normalize();
+			RBVector3 rd = -ray.direction.get_normalized();
+			RBVector3 rrd = normal*RBVector3::dot_product(normal, rd) * 2 - rd;
+			rrd.normalize();
+			Ray rr; rr.direction = rrd; rr.o = ip;
+			ic = trace_ray(rr, _trace_data, ++d);
+		
 		
 
 			
-
-		RBColorf oc = shade(_trace_data) + ic;
+			//递归越深贡献越小
+		RBColorf oc = shade(_trace_data,bb) + ic*(1.f/dep);
 		return oc;
 	}
 	else

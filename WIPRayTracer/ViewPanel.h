@@ -9,7 +9,7 @@ public:
 	int hsize;
 	float pixel_size;
 
-	void emit_ray(int v,int h,Ray& ray,TraceData& data);
+	void emit_ray(float v,float h,Ray& ray,TraceData& data);
 
 	ViewPanel(int vsize = 100,int hsize = 100,float pixel_size = 1.0);
 

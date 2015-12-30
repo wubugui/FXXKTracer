@@ -19,7 +19,7 @@ public:
 	 float kspec;
 	 //¸ß¹âÑÕÉ«
 	 RBVector3 cs;
-	 RBVector4 shade(RBVector3 n, RBVector3 l, RBVector3 v);
+	 RBVector4 shade(RBVector3 n, RBVector3 l, RBVector3 v, RBColorf ld);
 private:
 
 };

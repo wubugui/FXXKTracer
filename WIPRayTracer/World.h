@@ -26,14 +26,15 @@ private:
 	void tone(RBColorf& c);
 
 	PhongMat* phong_mat[4];
-	RBVector4 shade(TraceData& _trace_data);
+	RBVector4 shade(TraceData& _trace_data,bool shadow);
 	RBColorf trace_ray(Ray& ray, TraceData& _trace_data,int dep);
 	
 	unsigned char *_out_image;
 	typedef std::vector<BaseGeometryObject*> _ObjectList;
 	_ObjectList _objects;
 
-	static const int max_depth = 4;
+	static const int max_depth = 8;
 
+	RBVector3 light_pos;
 };
 

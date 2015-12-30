@@ -59,7 +59,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>..\..\Lib\RBMathLib_d.lib;D:\WIPRayTracer\WIPRayTracer\Debug\testlib.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\glew111\lib\Release\Win32;..\..\glfw304\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\glew111\lib\Release\Win32;..\..\glfw304\lib;.\xml\tinyxml.lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -80,14 +80,13 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>D:\WIPRayTracer\WIPRayTracer\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>RBMathEx.lib;testlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>RBMathEx.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BaseGeometryObject.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="OpenGL.cpp" />
     <ClCompile Include="PanelObject.cpp" />
     <ClCompile Include="PhongMat.cpp" />
     <ClCompile Include="Pinhole.cpp" />
@@ -96,6 +95,10 @@
     <ClCompile Include="TraceData.cpp" />
     <ClCompile Include="ViewPanel.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="xml\tinystr.cpp" />
+    <ClCompile Include="xml\tinyxml.cpp" />
+    <ClCompile Include="xml\tinyxmlerror.cpp" />
+    <ClCompile Include="xml\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseGeometryObject.h" />
@@ -104,7 +107,6 @@
     <ClInclude Include="Film.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="OpenGL.h" />
     <ClInclude Include="PanelObject.h" />
     <ClInclude Include="PhongMat.h" />
     <ClInclude Include="Pinhole.h" />

@@ -57,10 +57,10 @@ bool SphereObject::hit(Ray& ray,  TraceData& data) const
 	return false;
 }
 
-RBVector4 SphereObject::shade(RBVector3 n, RBVector3 l,RBVector3 v)
+RBVector4 SphereObject::shade(RBVector3 n, RBVector3 l,RBVector3 v,RBColorf ld)
 {
 	if (!mat) return RBVector4(0,0,0,0);
-	return ((PhongMat*)mat)->shade(n, l, v);
+	return ((PhongMat*)mat)->shade(n, l, v,ld);
 }
 
 RBVector3 SphereObject::get_normal(RBVector3 surf_p)

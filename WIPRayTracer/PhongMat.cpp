@@ -18,7 +18,7 @@ float PhongMat::f_sampling(RBVector3 wi, RBVector3 wo, RBVector3 p)
 	return INV_PI;
 }
 
-RBVector4 PhongMat::shade(RBVector3 n, RBVector3 l, RBVector3 v)
+RBVector4 PhongMat::shade(RBVector3 n, RBVector3 l, RBVector3 v, RBColorf ld)
 {
 	n.normalize();
 	l.normalize();
@@ -29,11 +29,13 @@ RBVector4 PhongMat::shade(RBVector3 n, RBVector3 l, RBVector3 v)
 
 	if (cost < 0) return RBVector4::zero_vector;
 
+	RBVector3 light = ld;
+
 	float brdf = f(l, v);
 	RBVector3 diff = cd*kd*brdf;
 	RBVector3 spec = cs*RBMath::pow(cost, kspec);
 
-	RBVector4 oc = RBVector4(diff + spec, 1.f);
+	RBVector4 oc = RBVector4((diff + spec)*light, 1.f);
 
 	return oc;
 

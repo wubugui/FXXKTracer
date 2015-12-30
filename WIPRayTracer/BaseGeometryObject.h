@@ -24,7 +24,7 @@ public:
 	~BaseGeometryObject();
 
 	virtual bool hit(Ray& ray,TraceData& data) const = 0;
-	virtual RBVector4 shade(RBVector3 n, RBVector3 l, RBVector3 v) = 0;
+	virtual RBVector4 shade(RBVector3 n, RBVector3 l, RBVector3 v,  RBColorf ld) = 0;
 	virtual RBVector3 get_normal(RBVector3 surf_p) = 0;
 	GeoTypes type;
 	Material* mat;

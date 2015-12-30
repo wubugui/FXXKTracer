@@ -35,11 +35,11 @@ bool PanelObject::hit(Ray& ray,  TraceData& data) const
 	}
 }
 
-RBVector4 PanelObject::shade(RBVector3 n, RBVector3 l, RBVector3 v)
+RBVector4 PanelObject::shade(RBVector3 n, RBVector3 l, RBVector3 v,  RBColorf ld)
 {
 	n = normal;
 	if (!mat) return RBVector4(0, 0, 0, 0);
-	return ((PhongMat*)mat)->shade(n, l, v);
+	return ((PhongMat*)mat)->shade(n, l, v,ld);
 }
 
 RBVector3 PanelObject::get_normal(RBVector3 surf_p)

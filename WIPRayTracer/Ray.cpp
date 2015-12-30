@@ -7,8 +7,16 @@ Ray::Ray(float tt)
 }
 
 
+Ray::Ray(RBVector3 o, RBVector3 end)
+{
+	this->o = o;
+	this->direction = (end - o).get_normalized();
+	this->t = (end - o).size();
+}
+
 Ray::~Ray()
 {
+
 }
 
 const Ray Ray::sss(12);

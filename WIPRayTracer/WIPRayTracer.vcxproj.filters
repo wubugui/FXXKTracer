@@ -17,6 +17,9 @@
     <Filter Include="Extension">
       <UniqueIdentifier>{d67894d9-f2c6-4d72-8d23-731eb0345da2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="xml">
+      <UniqueIdentifier>{3f7e5f2c-2680-4ff9-9e0f-18fca679ff85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -43,9 +46,6 @@
     <ClCompile Include="SphereObject.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGL.cpp">
-      <Filter>Extension</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -54,6 +54,18 @@
     </ClCompile>
     <ClCompile Include="PhongMat.cpp">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="xml\tinystr.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="xml\tinyxml.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="xml\tinyxmlerror.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="xml\tinyxmlparser.cpp">
+      <Filter>xml</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,9 +95,6 @@
     </ClInclude>
     <ClInclude Include="FFTTEST.h">
       <Filter>Test\cases</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL.h">
-      <Filter>Extension</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Sources</Filter>

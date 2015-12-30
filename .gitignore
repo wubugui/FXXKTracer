@@ -1,3 +1,6 @@
-OpenLight/.vs
-OpenLight/Debug
+WIPRayTracer/Release
+WIPRayTracer/Debug
+.Archive
+Debug
+Release
 *.sdf

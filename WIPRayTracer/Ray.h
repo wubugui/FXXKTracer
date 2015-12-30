@@ -18,6 +18,7 @@ public:
 	bool hit(BaseGeometryObject* s,TraceData* data);
 
 	Ray(float t = MAX_F);
+	Ray(RBVector3 o,RBVector3 end);
 	~Ray();
 
 	static const Ray sss;
