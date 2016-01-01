@@ -33,7 +33,7 @@ private:
 	typedef std::vector<BaseGeometryObject*> _ObjectList;
 	_ObjectList _objects;
 
-	static const int max_depth = 8;
+	static const int max_depth = 6;
 
 	RBVector3 light_pos;
 };

@@ -315,9 +315,9 @@ void World::build(int num)
 
 	//_objects.push_back(o1);
 	//_objects.push_back(o11);
-	//_objects.push_back(p);
+	_objects.push_back(p);
 	_objects.push_back(p1);
-	_objects.push_back(pl);
+	//_objects.push_back(pl);
 	_objects.push_back(pr);
 	//_objects.push_back(pt);
 	//_objects.push_back(o111);
@@ -377,7 +377,7 @@ void World::build(int num)
 void World::render()
 {
 	TraceData _trace_data;
-	ViewPanel panel(800,800);
+	ViewPanel panel(1920,1080);
 	_out_image = new unsigned char[panel.vsize*panel.hsize * 3];
 	Ray ray;
 	RBColorf c(0,0,0,1.f);
@@ -391,8 +391,12 @@ void World::render()
 			panel.emit_ray(i,j,ray, _trace_data);
 			c = trace_ray(ray, _trace_data,1)*(1-ssk);
 
-			float i0 = i - 0.5; float j0 = j - 0.5;
-			float i1 = i + 0.5; float j1 = j + 0.5;
+			
+			
+
+			//0.5会重复3倍同样的采样
+			float i0 = i + 0.3; float j0 = j + 0.3;;
+			float i1 = i - 0.3; float j1 = j -0.3;
 
 			panel.emit_ray(i0, j0, ray, _trace_data);
 			c += trace_ray(ray, _trace_data, 1)*ssk*0.25;
@@ -409,9 +413,9 @@ void World::render()
 
 
 			tone(c);
-			if ((i * 800 + j) % 12800 == 0)
+			if ((i * panel.hsize + j) % (panel.vsize * panel.hsize)*0.02 == 0)
 			{
-				printf("%d/100\n",(int)((i*800+j)/640000.f*100));
+				printf("%d/100\n", (int)((i * panel.hsize + j) / panel.vsize / panel.hsize * 100));
 			}
 			_out_image[i*panel.hsize * 3 + j * 3] = (unsigned char)(c.b * 255);
 			_out_image[i*panel.hsize * 3 + j * 3 + 1] = (unsigned char)(c.g * 255);
@@ -607,7 +611,7 @@ RBColorf World::trace_ray(Ray& ray, TraceData& trace_data,int dep)
 
 void World::out_put()
 {
-	int size = 800;
+	int size = 2000;
 	/*
 	for (int i = 0; i < size; ++i)
 	{
@@ -623,12 +627,16 @@ void World::out_put()
 
 	ClImage* i = new ClImage();
 	i->channels = 3;
-	i->height = size;
-	i->width = size;
+	i->height = 1920;
+	i->width = 1080;
 	i->imageData = _out_image;
 	bool flag = clSaveImage("c:/result1.bmp", i);
 	if (flag)
 	{
 		printf("save ok... \n");
+	}
+	else
+	{
+		printf("save failed!!!\n");
 	}
 }
